@@ -4,27 +4,35 @@
 
 
 using namespace std;
-long long p = 1000000007;
+int p = 1000000007;
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int t; cin >> t;
-    while(t--){
-    	int n; cin >> n;
-    	priority_queue<long long> pq;
-    	for(int i=0;i<n;i++){
-    		long long a; cin >> a;
-    		pq.push(-a);
-		}
-		long long sum=1;
-		while(pq.size()>=2){
-			long long x=pq.top(); pq.pop();
-			long long y=pq.top(); pq.pop();
-			sum*=((x%p)*(y%p))%p;
-			sum%=p;
-			pq.push(-(x*y));
-		}
-		cout << sum << '\n';
-	}
-    return 0;
+  
+    long long t,n,a;
+    long long x,y,temp;
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+        priority_queue<long long> pq;
+        long long sum = 1;
+        cin >> n;
+        for (long long j = 0; j < n; j++) {
+            cin >> a;
+            pq.push(-a);
+        }
+        while (pq.size() > 1) {
+            x = pq.top();
+            pq.pop();
+            y = pq.top();
+            pq.pop();
+            temp = x * y;
+            pq.push(-temp);
+            temp = temp % p;
+            sum = sum % p;
+            sum = sum * temp;
+			sum %= p;            
+            
+        }
+        cout << sum << '\n';
+    }
 }
