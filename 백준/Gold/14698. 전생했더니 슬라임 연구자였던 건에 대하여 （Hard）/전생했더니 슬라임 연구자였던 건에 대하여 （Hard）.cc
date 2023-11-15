@@ -30,9 +30,10 @@ int main() {
             temp = temp % p;
             sum = sum % p;
             sum = sum * temp;
-			sum %= p;            
+	           
             
         }
+        		sum %= p; 
         cout << sum << '\n';
     }
 }
