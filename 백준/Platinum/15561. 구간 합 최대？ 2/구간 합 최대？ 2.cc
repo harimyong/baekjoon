@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#define INF 10000000000
+using namespace std;
+typedef long long ll;
+const int MAX = 100005;
+int n,q,u,v;
+ll arr[MAX];
+
+struct node{
+	ll tot,lmax,rmax,tmax;
+};
+
+node seg[MAX*4];
+
+ll mid(int l,int r){
+	return (l+r)/2;
+}
+
+node merge(node a,node b){
+	node ret;
+	ret.tot=a.tot+b.tot;
+	ret.lmax=max(a.lmax,a.tot+b.lmax);
+	ret.rmax=max(b.rmax,b.tot+a.rmax);
+	ret.tmax=max({a.tmax,b.tmax,a.rmax+b.lmax});
+	return ret;
+}
+
+void update(int l,int r,int node,int k,ll val){
+	if(l>k || k>r) return;
+	if(l==r){
+		seg[node]={val,val,val,val};
+		return;
+	}
+	update(l,mid(l,r),node*2,k,val);
+	update(mid(l,r)+1,r,node*2+1,k,val);
+	seg[node]=merge(seg[node*2],seg[node*2+1]);	
+}
+
+node query(int s,int e,int l,int r,int node){
+	if(s>r || l>e) return {0,-INF,-INF,-INF};
+	if(s<=l && r<=e) return seg[node];
+	return merge(query(s,e,l,mid(l,r),node*2),query(s,e,mid(l,r)+1,r,node*2+1));
+}
+
+
+int main(){
+	ios::sync_with_stdio(false); // C++ 입출력 버퍼 동기화 해제
+    cin.tie(NULL); // cin과 cout의 묶임을 해제하여 버퍼 분리
+	cout.tie(NULL);
+	cin >> n >> q >> u >> v;
+	for(int i=1;i<=n;i++){
+		ll x; cin >> x;
+		update(1,n,1,i,(u*x)+v);
+	}	
+	//init(1,n,1);
+	while(q--){
+		int a,b,c;
+		cin >> a >> b >> c;
+		if(a==0){
+			cout << query(b,c,1,n,1).tmax-v << '\n';
+		}else{
+			update(1,n,1,b,(u*c)+v);
+		}
+	}
+	return 0;
+}
