@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#define INF 10000000000
+#define INF 1000000000
 using namespace std;
 typedef long long ll;
-const int MAX = 100005;
+const int MAX = 100001;
 int n,q,u,v;
 ll arr[MAX];
 
@@ -27,7 +27,17 @@ node merge(node a,node b){
 	return ret;
 }
 
-void update(int l,int r,int node,int k,ll val){
+void init(int l,int r,int node){
+	if(l==r){
+		seg[node]={u*arr[l]+v,u*arr[l]+v,u*arr[l]+v,u*arr[l]+v};
+		return;
+	}
+	init(l,mid(l,r),node*2);
+	init(mid(l,r)+1,r,node*2+1);
+	seg[node]=merge(seg[node*2],seg[node*2+1]);
+}
+
+void update(int l,int r,int node,int k,int val){
 	if(l>k || k>r) return;
 	if(l==r){
 		seg[node]={val,val,val,val};
@@ -51,17 +61,16 @@ int main(){
 	cout.tie(NULL);
 	cin >> n >> q >> u >> v;
 	for(int i=1;i<=n;i++){
-		ll x; cin >> x;
-		update(1,n,1,i,(u*x)+v);
+		cin >> arr[i];
 	}	
-	//init(1,n,1);
+	init(1,n,1);
 	while(q--){
 		int a,b,c;
 		cin >> a >> b >> c;
 		if(a==0){
 			cout << query(b,c,1,n,1).tmax-v << '\n';
 		}else{
-			update(1,n,1,b,(u*c)+v);
+			update(1,n,1,b,u*c+v);
 		}
 	}
 	return 0;
