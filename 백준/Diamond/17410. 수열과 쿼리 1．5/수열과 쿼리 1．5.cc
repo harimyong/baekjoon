@@ -15,17 +15,17 @@ void init(){
 	cin >> n;
 	sqrtN=sqrt(n);
 	//cout << sqrtN << '\n';
-	for(int i=1;i<=n;i++){
+	for(register int i=1;i<=n;i++){
 		cin >> arr[i];
 		bucket[i/sqrtN].push_back(arr[i]);
 	}//cout << '\n';
-	for(int i=0;i<=n/sqrtN;i++) {
+	for(register int i=0;i<=n/sqrtN;i++) {
 		sort(bucket[i].begin(),bucket[i].end());
 	}
 }
 
 void update(int k,int v){
-	for(int i=0;i<bucket[k/sqrtN].size();i++){
+	for(register int i=0;i<bucket[k/sqrtN].size();i++){
 		if(arr[k]==bucket[k/sqrtN][i]){
 			bucket[k/sqrtN][i]=v;
 			arr[k]=v;
@@ -38,11 +38,11 @@ void update(int k,int v){
 int query(int l,int r,int k){
 	int ret=0;
 	if(l/sqrtN==r/sqrtN){
-		for(int i=l;i<=r;i++) if(arr[i]>k) ret++;
+		for(register int i=l;i<=r;i++) if(arr[i]>k) ret++;
 	}else{
-		for(int i=l;i<sqrtN*(l/sqrtN+1);i++) if(arr[i]>k) ret++;
-		for(int i=sqrtN*(r/sqrtN);i<=r;i++) if(arr[i]>k) ret++;
-		for(int i=l/sqrtN+1;i<r/sqrtN;i++) 
+		for(register int i=l;i<sqrtN*(l/sqrtN+1);i++) if(arr[i]>k) ret++;
+		for(register int i=sqrtN*(r/sqrtN);i<=r;i++) if(arr[i]>k) ret++;
+		for(register int i=l/sqrtN+1;i<r/sqrtN;i++) 
 		ret+=bucket[i].end()-upper_bound(bucket[i].begin(),bucket[i].end(),k);
 	}
 	return ret;
