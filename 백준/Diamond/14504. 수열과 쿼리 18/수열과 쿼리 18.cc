@@ -28,13 +28,9 @@ void init(){
 
 void update(int k,int v){
 	int Ai=arr[k];
-	for(int i=0;i<bucket[k/sqrtN].size();i++){
-		if(arr[k]==bucket[k/sqrtN][i]){
-			bucket[k/sqrtN][i]=v;
-			arr[k]=v;
-			break;
-		}
-	}
+	auto it=lower_bound(bucket[k/sqrtN].begin(),bucket[k/sqrtN].end(),Ai);
+	*it=v;
+	arr[k]=v;
 	sort(bucket[k/sqrtN].begin(),bucket[k/sqrtN].end());
 }
 
