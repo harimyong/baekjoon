@@ -32,7 +32,7 @@ void update(int s,int e,int l,int r,int node,int val){
 	
 	if(cnt[node]) seg[node]=r-l+1;
 	else{
-		if(s==e) seg[node]=0;
+		if(l==r) seg[node]=0;
 		else seg[node]=seg[node*2]+seg[node*2+1];	
 	}
 }
