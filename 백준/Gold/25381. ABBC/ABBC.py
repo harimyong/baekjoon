@@ -3,27 +3,30 @@ from collections import deque
 s=input().rstrip()
 ans=0
 check=[0]*len(s)
-A,B=deque(),deque()
-for i in range(len(s)-1,-1,-1):
+A,B,C=deque(),deque(),deque()
+for i in range(len(s)):
     if s[i]=='A':
         A.append(i)
     elif s[i]=='B':
         B.append(i)
+    else:
+        C.append(i)
 
-for i in range(len(s)-1,-1,-1):
-    if check[i]==0 and s[i]=='B':
-        while A and A[0]>i:
-            A.popleft()
-        if A and A[0]<i:
-            check[i]=check[A[0]]=1
+while B:
+    if C:
+        if B[0]<C[0]:
+            B.popleft()
             ans+=1
-            A.popleft()
+        C.popleft()
+    else:
+        break
 
-    if check[i]==0 and s[i]=='C':
-        while B and B[0]>i:
-            B.popleft()
-        if B and B[0]<i:
-            check[i]=check[B[0]]=1
+while B:
+    if A:
+        if A[0]<B[0]:
+            A.popleft()
             ans+=1
-            B.popleft()
+        B.popleft()
+    else:
+        break
 print(ans)
