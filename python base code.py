@@ -1,5 +1,6 @@
 import sys; 
 input=sys.stdin.readline
+sys.setrecursionlimit(10**6)
 from heapq import heappush as psh
 from heapq import heappop as pp
 from collections import deque
