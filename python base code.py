@@ -9,3 +9,4 @@ def Inp_TwD(type,N): return [list(M_IS(type)) for _ in range(N)] #Set 2d list of
 def Inp_ThD(type,N,M): return [[list(M_IS(type)) for _ in range(M)] for _ in range(N)] #Set 3d list of a specific type
 def Set_OnD(base,N): return [base for _ in range(N)] #Set 1d list with base
 def Set_TwD(base,N,M): return [[base for _ in range(M)] for _ in range(N)] #Set 2d list with base
+def Set_ThD(base,N,M,K): return [[[base for _ in range(K)] for _ in range(M)] for _ in range(N)] #Set 3d list with base
