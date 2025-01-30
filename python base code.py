@@ -14,4 +14,5 @@ def Set_TwD(base,N,M): return [[base for _ in range(M)] for _ in range(N)] #Set 
 def Set_ThD(base,N,M,K): return [[[base for _ in range(K)] for _ in range(M)] for _ in range(N)] #Set 3d list with base
 dx=[-1,1,0,0] # dx=[-1,0,1,-1,1,-1,0,1]
 dy=[0,0,-1,1] # dy=[-1,-1,-1,0,0,1,1,1]
+S,E=((i,j) for i in range(N)for j in range(N)if G[i][j]=='#') # if G[i][j]=='#', Generate (i,j) and insert pair in S,E
 ########################################################################################################################
